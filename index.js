@@ -32,7 +32,7 @@ const starterQuestions = [
 {
     type: 'input',
     message: "What is your github",
-    name: 'github'
+    name: 'github',
 },
 {
     type: 'list',
@@ -47,6 +47,7 @@ const questions = [
         message: "What is the employees name?",
         name: 'name',
         default: 'Josh',
+        
         
         
     },
@@ -91,14 +92,55 @@ function writeToFile(fileName, data) {
   
 
 async function init() {
+    const storage = []
     const response =  await inquirer.prompt(starterQuestions)
     const manager = new Employee(response.name, response.office, response.email, "Manager")
-    console.log(manager)
-    const markdown = generateHTML(response)
+    storage.push(manager)
+    
+    
+    if(response.addEmployee === 'Engineer' || response.addEmployee === 'Intern') {
+        let data = await inquirer.prompt(questions)
+        const employeeName = response.addEmployee 
+        const test = new Employee(data.name, data.id, data.email, response.addEmployee)
+        storage.push(test)
+       addEmployee(data, employeeName)
+        
+    }
+
+    function addEmployee(data, name) {
+            let index = new Employee(data.name, data.id, data.email, name)
+            console.log(index)
+            storage.push(index)
+            
+           if(data.addEmployee === 'Engineer' || data.addEmployee === 'Intern') {
+            testForNewEmployee()
+           } else
+           return
+            
+    }
+
+    async function testForNewEmployee() {
+        let newData = await inquirer.prompt(questions)
+        if(newData.addEmployee === 'Engineer' || newData.addEmployee === 'Intern') {
+            addEmployee(newData, newData.addEmployee)
+         
+    }
+
+    }
 
 
-    writeToFile('index.html', markdown)
+  
+    
+
+    
+    
+    // const markdown = generateHTML(response)
+
+
+    // writeToFile('index.html', markdown)
     //Writes file based on markdown values
 }
+
+
 // Init is an async function so it runs after the prompt is finished
 init();
