@@ -4,38 +4,75 @@ const fs = require('fs')
 const generateMarkdown = require('./utils/generateHTML.js');
 const generateHTML = require("./utils/generateHTML.js");
 // Node dependencies
-
-const questions = [ 
+function Employee(type,  id, email, work) {
+    this.type = type
+    this.id = id
+    this.email = email
+    this.work = work
+}
+const starterQuestions = [ 
 {
     type: 'input',
     message: "What is your name?",
-    name: 'title',
+    name: 'name',
     default: 'Josh',
     
     
 },
 {
     type: 'input',
-    message: "Where are you located?",
-    name: 'location',
-    default: 'Boston',
+    message: "What is your email?",
+    name: 'email'
 },
 {
     type: 'input',
-    message: "Tell me something about yourself!",
-    name: 'bio'
+    message: "What is your office number?",
+    name: 'office' 
 },
 {
     type: 'input',
-    message: "Enter your github username",
+    message: "What is your github",
     name: 'github'
 },
 {
-    type: 'input',
-    message: "Enter your linkedin username",
-    name: 'linkedin'
+    type: 'list',
+    message: "Would you like to add an employee?",
+    name: "addEmployee",
+    choices: ['Engineer', "Intern", "finish building your team"]
 }
 ];
+const questions = [ 
+    {
+        type: 'input',
+        message: "What is the employees name?",
+        name: 'name',
+        default: 'Josh',
+        
+        
+    },
+    {
+        type: 'input',
+        message: "What is the employee's id?",
+        name: 'id',
+        default: '123',
+    },
+    {
+        type: 'input',
+        message: "What is the employees email?",
+        name: 'email'
+    },
+    {
+        type: 'input',
+        message: "What is the employee's github",
+        name: 'github'
+    },
+    {
+        type: 'list',
+        message: "Would you like to add another employee?",
+        name: "addEmployee",
+        choices: ['Engineer', "Intern", "finish building your team"]
+    }
+    ];
 // Array of user questions for inquirer
 
 
@@ -54,7 +91,9 @@ function writeToFile(fileName, data) {
   
 
 async function init() {
-    const response =  await inquirer.prompt(questions)
+    const response =  await inquirer.prompt(starterQuestions)
+    const manager = new Employee(response.name, response.office, response.email, "Manager")
+    console.log(manager)
     const markdown = generateHTML(response)
 
 
