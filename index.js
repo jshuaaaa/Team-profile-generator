@@ -12,6 +12,26 @@ constructor(name, type,  id, email, work) {
     this.work = work
 }
 }
+
+class Engineer {
+    constructor(name, type,  id, email, work) {
+        this.name = name
+        this.type = type
+        this.id = id
+        this.email = email
+        this.work = work
+    }
+    }
+class Intern {
+        constructor(name, type,  id, email, work) {
+            this.name = name
+            this.type = type
+            this.id = id
+            this.email = email
+            this.work = work
+        }
+        }
+
 const starterQuestions = [ 
 {
     type: 'input',
@@ -61,13 +81,13 @@ const questions = [
     },
     {
         type: 'input',
-        message: "What is the employee's school? Click enter if not applicable",
-        name: 'school'
+        message: "What is the employee's github? Click enter if not applicable",
+        name: 'github'
     },
     {
         type: 'input',
-        message: "What is the employee's github? Click enter if not applicable",
-        name: 'github'
+        message: "What is the employee's school? Click enter if not applicable",
+        name: 'school'
     },
     {
         type: 'list',
@@ -101,50 +121,49 @@ async function init() {
     
     
     if(response.addEmployee === 'Engineer' || response.addEmployee === 'Intern') {
-        let data = await inquirer.prompt(questions)
-        const employeeName = response.addEmployee
-        addEmployee(data, employeeName)
+        testForNewEmployee(response, response.addEmployee)
         
     } else if(response.addEmployee === "finish building your team") {
     writeToFile('index.html', generateHTML(storage))
     }
 
-    function addEmployee(data, name) {
-                if(name === "Intern") {
-                    let index = new Employee(data.name, name, data.id, data.email, data.school)
-                    storage.push(index)
-                } 
-                if(name === "Engineer") {
-                    let index = new Employee(data.name, name, data.id, data.email, data.github)
-                    storage.push(index)
-                }
-                
-            
-            
-            
-            
-           if(data.addEmployee === 'Engineer' || data.addEmployee === 'Intern') {
-            testForNewEmployee(data.addEmployee)
-           } else if(data.addEmployee === "finish building your team") {
-            writeToFile('index.html', generateHTML(storage))
-            }
-            
+    function checkAgain(tester, newName) {
+      console.log('t')
+        testForNewEmployee(tester, newName)
+        
+
     }
 
-    async function testForNewEmployee(name) {
-        let newData = await inquirer.prompt(questions)
-        if(name === 'Engineer') {
-            let index = new Employee(newData.name, name, newData.id, newData.email, newData.github)
+    async function testForNewEmployee(data, name) {
+        let newdata = await inquirer.prompt(questions)
+        if(name === "Intern") {
+            let index = new Intern(newdata.name, name, newdata.id, newdata.email, newdata.school)
             storage.push(index)
-           }
-
-        if(name === 'Intern') {
-            let index = new Employee(newData.name, name, newData.id, newData.email, newData.school)
+            
+            
+        } else if(name === "Engineer") {
+            let index = new Engineer(newdata.name, name, newdata.id, newdata.email, newdata.github)
             storage.push(index)
-           }
+            
+        }
 
+        
+
+        if(newdata.addEmployee === "finish building your team") {
+           
+            writeToFile('index.html', generateHTML(storage))
+            }  else checkAgain(newdata, newdata.addEmployee)
+
+    
+
+        
+
+        
+       
+            
+           
    
-        addEmployee(newData, newData.addEmployee)
+
             
         
         
