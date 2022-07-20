@@ -59,8 +59,8 @@ function generateHTML(response) {
           <h4 class="card-text">${response[0].type}</h4>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">${response[0].id}</li>
-          <li class="list-group-item">${response[0].email}</li>
+          <li class="list-group-item">ID: ${response[0].id}</li>
+          <li class="list-group-item">Email: ${response[0].email}</li>
         </ul>
         
       </div>`
@@ -77,9 +77,9 @@ function generateHTML(response) {
           <h4 class="card-text">${response[i].type}</h4>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">${response[i].id}</li>
-          <li class="list-group-item">${response[i].email}</li>
-          <li class="list-group-item"><a href="https://github.com/${response[i].work}">Github: ${response[i].work}</a></li>
+          <li class="list-group-item">ID: ${response[i].id}</li>
+          <li class="list-group-item">Email: ${response[i].email}</li>
+          <li class="list-group-item">Github: <a href="https://github.com/${response[i].work}"> ${response[i].work}</a></li>
         </ul>
         
       </div>
@@ -93,8 +93,8 @@ function generateHTML(response) {
              <h4 class="card-text">${response[i].type}</h4>
            </div>
            <ul class="list-group list-group-flush">
-             <li class="list-group-item">${response[i].id}</li>
-             <li class="list-group-item">${response[i].email}</li>
+             <li class="list-group-item">ID: ${response[i].id}</li>
+             <li class="list-group-item">Email: ${response[i].email}</li>
              <li class="list-group-item">School: ${response[i].work}</li>
            </ul>
            
