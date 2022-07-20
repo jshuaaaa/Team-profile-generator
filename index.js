@@ -113,7 +113,8 @@ async function init() {
                 if(name === "Intern") {
                     let index = new Employee(data.name, name, data.id, data.email, data.school)
                     storage.push(index)
-                } else {
+                } 
+                if(name === "Engineer") {
                     let index = new Employee(data.name, name, data.id, data.email, data.github)
                     storage.push(index)
                 }
@@ -123,16 +124,30 @@ async function init() {
             
             
            if(data.addEmployee === 'Engineer' || data.addEmployee === 'Intern') {
-            testForNewEmployee()
+            testForNewEmployee(data.addEmployee)
            } else if(data.addEmployee === "finish building your team") {
             writeToFile('index.html', generateHTML(storage))
             }
             
     }
 
-    async function testForNewEmployee() {
+    async function testForNewEmployee(name) {
         let newData = await inquirer.prompt(questions)
+        if(name === 'Engineer') {
+            let index = new Employee(newData.name, name, newData.id, newData.email, newData.github)
+            storage.push(index)
+           }
+
+        if(name === 'Intern') {
+            let index = new Employee(newData.name, name, newData.id, newData.email, newData.school)
+            storage.push(index)
+           }
+
+   
         addEmployee(newData, newData.addEmployee)
+            
+        
+        
          
    
 
