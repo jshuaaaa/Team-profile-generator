@@ -1,14 +1,16 @@
 const inquirer = require("inquirer");
 const fs = require('fs')
 
-const generateMarkdown = require('./utils/generateHTML.js');
 const generateHTML = require("./utils/generateHTML.js");
 // Node dependencies
-function Employee(type,  id, email, work) {
+class Employee {
+constructor(name, type,  id, email, work) {
+    this.name = name
     this.type = type
     this.id = id
     this.email = email
     this.work = work
+}
 }
 const starterQuestions = [ 
 {
@@ -28,11 +30,6 @@ const starterQuestions = [
     type: 'input',
     message: "What is your office number?",
     name: 'office' 
-},
-{
-    type: 'input',
-    message: "What is your github",
-    name: 'github',
 },
 {
     type: 'list',
@@ -64,7 +61,12 @@ const questions = [
     },
     {
         type: 'input',
-        message: "What is the employee's github",
+        message: "What is the employee's school? Click enter if not applicable",
+        name: 'school'
+    },
+    {
+        type: 'input',
+        message: "What is the employee's github? Click enter if not applicable",
         name: 'github'
     },
     {
@@ -94,37 +96,45 @@ function writeToFile(fileName, data) {
 async function init() {
     const storage = []
     const response =  await inquirer.prompt(starterQuestions)
-    const manager = new Employee(response.name, response.office, response.email, "Manager")
+    const manager = new Employee(response.name, "Manager", response.office, response.email, "N/A")
     storage.push(manager)
     
     
     if(response.addEmployee === 'Engineer' || response.addEmployee === 'Intern') {
         let data = await inquirer.prompt(questions)
-        const employeeName = response.addEmployee 
-        const test = new Employee(data.name, data.id, data.email, response.addEmployee)
-        storage.push(test)
-       addEmployee(data, employeeName)
+        const employeeName = response.addEmployee
+        addEmployee(data, employeeName)
         
+    } else if(response.addEmployee === "finish building your team") {
+    writeToFile('index.html', generateHTML(storage))
     }
 
     function addEmployee(data, name) {
-            let index = new Employee(data.name, data.id, data.email, name)
-            console.log(index)
-            storage.push(index)
+                if(name === "Intern") {
+                    let index = new Employee(data.name, name, data.id, data.email, data.school)
+                    storage.push(index)
+                } else {
+                    let index = new Employee(data.name, name, data.id, data.email, data.github)
+                    storage.push(index)
+                }
+                
+            
+            
+            
             
            if(data.addEmployee === 'Engineer' || data.addEmployee === 'Intern') {
             testForNewEmployee()
-           } else
-           return
+           } else if(data.addEmployee === "finish building your team") {
+            writeToFile('index.html', generateHTML(storage))
+            }
             
     }
 
     async function testForNewEmployee() {
         let newData = await inquirer.prompt(questions)
-        if(newData.addEmployee === 'Engineer' || newData.addEmployee === 'Intern') {
-            addEmployee(newData, newData.addEmployee)
+        addEmployee(newData, newData.addEmployee)
          
-    }
+   
 
     }
 

@@ -52,27 +52,72 @@ function generateHTML(response) {
        </div>
      </div>
    </nav>
-   
-   <div class="jumbotron">
-     <div class="container text-center">
-       <h1>${response.title}</h1>      
-       <p>${response.bio}</p>
-     </div>
-   </div>
+   <div class="card" style="width: 18rem;">
+ 
+        <div class="card-body" style="border: 1px solid black">
+          <h2 class="card-title">${response[0].name}</h2>
+          <h4 class="card-text">${response[0].type}</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">${response[0].id}</li>
+          <li class="list-group-item">${response[0].email}</li>
+        </ul>
+        
+      </div>`
+
+
+       for(let i = 1; i<response.length; i++) {
+        
+        if(response[i].type === 'Engineer') {
+       markdownDraft += `
+       <div class="card" style="width: 18rem;">
+ 
+        <div class="card-body" style="border: 1px solid black">
+          <h2 class="card-title">${response[i].name}</h2>
+          <h4 class="card-text">${response[i].type}</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">${response[i].id}</li>
+          <li class="list-group-item">${response[i].email}</li>
+          <li class="list-group-item"><a href="https://github.com/${response[i].work}">Github: ${response[i].work}</a></li>
+        </ul>
+        
+      </div>
+       `
+        } else if(response[i].type === 'Intern') {
+          markdownDraft += `
+          <div class="card" style="width: 18rem;">
+    
+           <div class="card-body" style="border: 1px solid black">
+             <h2 class="card-title">${response[i].name}</h2>
+             <h4 class="card-text">${response[i].type}</h4>
+           </div>
+           <ul class="list-group list-group-flush">
+             <li class="list-group-item">${response[i].id}</li>
+             <li class="list-group-item">${response[i].email}</li>
+             <li class="list-group-item">School: ${response[i].work}</li>
+           </ul>
+           
+         </div>
+          `
+           }
+
+       }
+
      
-   <div class="container-fluid bg-3 text-center">    
-     <h3>Located in ${response.location}</h3><br>
+   markdownDraft += `<div class="container-fluid bg-3 text-center">    
+     <h3>Located in undefined</h3><br>
      <div class="row">
        <div class="col-sm-3">
          <p>Some text..</p>
          <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
        </div>
        <div class="col-sm-3"> 
-         <p>My github username is: ${response.github}</p>
+         <p>My github username is: 1</p>
          <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
        </div>
        <div class="col-sm-3"> 
-         <p>My linkedin username is: ${response.linkedin}</p>
+         <p>My linkedin username is: undefined</p>
          <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
        </div>
        <div class="col-sm-3">
