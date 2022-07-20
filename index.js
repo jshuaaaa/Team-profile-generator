@@ -12,7 +12,7 @@ constructor(name, type,  id, email, work) {
     this.work = work
 }
 }
-
+// Employee class
 class Engineer {
     constructor(name, type,  id, email, work) {
         this.name = name
@@ -22,6 +22,7 @@ class Engineer {
         this.work = work
     }
     }
+    //Engineer class
 class Intern {
         constructor(name, type,  id, email, work) {
             this.name = name
@@ -31,7 +32,9 @@ class Intern {
             this.work = work
         }
         }
+// Intern class
 
+// Starter questions are for manager data and normal questions are for intern/engineer
 const starterQuestions = [ 
 {
     type: 'input',
@@ -115,6 +118,7 @@ function writeToFile(fileName, data) {
 
 async function init() {
     const storage = []
+    //empty array used to store employees
     const response =  await inquirer.prompt(starterQuestions)
     const manager = new Employee(response.name, "Manager", response.office, response.email, "N/A")
     storage.push(manager)
@@ -133,6 +137,7 @@ async function init() {
         
 
     }
+    // Based on user input generates new employee data
 
     async function testForNewEmployee(data, name) {
         let newdata = await inquirer.prompt(questions)
@@ -154,7 +159,7 @@ async function init() {
             writeToFile('index.html', generateHTML(storage))
             }  else checkAgain(newdata, newdata.addEmployee)
 
-    
+    // This function adds the employee created to the previous array and also creates a new one if neccesary
 
         
 
@@ -188,3 +193,6 @@ async function init() {
 
 // Init is an async function so it runs after the prompt is finished
 init();
+module.exports = Engineer
+module.exports = Intern
+module.exports = Employee
