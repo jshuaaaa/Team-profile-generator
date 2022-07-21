@@ -5,6 +5,6 @@ const Engineer = require('../index')
 describe("Employee", () => {
     it("Can instantiate Employee instance", () => {
         const test = new Employee();
-        expect(typeof(e)).toBe("object");
+        expect(typeof(test)).toBe("object");
     });
 })
